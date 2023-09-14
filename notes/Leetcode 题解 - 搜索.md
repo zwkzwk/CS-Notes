@@ -1,65 +1,67 @@
+# Leetcode 题解 - 搜索
 <!-- GFM-TOC -->
-* [BFS](#bfs)
-    * [1. 计算在网格中从原点到特定点的最短路径长度](#1-计算在网格中从原点到特定点的最短路径长度)
-    * [2. 组成整数的最小平方数数量](#2-组成整数的最小平方数数量)
-    * [3. 最短单词路径](#3-最短单词路径)
-* [DFS](#dfs)
-    * [1. 查找最大的连通面积](#1-查找最大的连通面积)
-    * [2. 矩阵中的连通分量数目](#2-矩阵中的连通分量数目)
-    * [3. 好友关系的连通分量数目](#3-好友关系的连通分量数目)
-    * [4. 填充封闭区域](#4-填充封闭区域)
-    * [5. 能到达的太平洋和大西洋的区域](#5-能到达的太平洋和大西洋的区域)
-* [Backtracking](#backtracking)
-    * [1. 数字键盘组合](#1-数字键盘组合)
-    * [2. IP 地址划分](#2-ip-地址划分)
-    * [3. 在矩阵中寻找字符串](#3-在矩阵中寻找字符串)
-    * [4. 输出二叉树中所有从根到叶子的路径](#4-输出二叉树中所有从根到叶子的路径)
-    * [5. 排列](#5-排列)
-    * [6. 含有相同元素求排列](#6-含有相同元素求排列)
-    * [7. 组合](#7-组合)
-    * [8. 组合求和](#8-组合求和)
-    * [9. 含有相同元素的组合求和](#9-含有相同元素的组合求和)
-    * [10. 1-9 数字的组合求和](#10-1-9-数字的组合求和)
-    * [11. 子集](#11-子集)
-    * [12. 含有相同元素求子集](#12-含有相同元素求子集)
-    * [13. 分割字符串使得每个部分都是回文数](#13-分割字符串使得每个部分都是回文数)
-    * [14. 数独](#14-数独)
-    * [15. N 皇后](#15-n-皇后)
+* [Leetcode 题解 - 搜索](#leetcode-题解---搜索)
+    * [BFS](#bfs)
+        * [1. 计算在网格中从原点到特定点的最短路径长度](#1-计算在网格中从原点到特定点的最短路径长度)
+        * [2. 组成整数的最小平方数数量](#2-组成整数的最小平方数数量)
+        * [3. 最短单词路径](#3-最短单词路径)
+    * [DFS](#dfs)
+        * [1. 查找最大的连通面积](#1-查找最大的连通面积)
+        * [2. 矩阵中的连通分量数目](#2-矩阵中的连通分量数目)
+        * [3. 好友关系的连通分量数目](#3-好友关系的连通分量数目)
+        * [4. 填充封闭区域](#4-填充封闭区域)
+        * [5. 能到达的太平洋和大西洋的区域](#5-能到达的太平洋和大西洋的区域)
+    * [Backtracking](#backtracking)
+        * [1. 数字键盘组合](#1-数字键盘组合)
+        * [2. IP 地址划分](#2-ip-地址划分)
+        * [3. 在矩阵中寻找字符串](#3-在矩阵中寻找字符串)
+        * [4. 输出二叉树中所有从根到叶子的路径](#4-输出二叉树中所有从根到叶子的路径)
+        * [5. 排列](#5-排列)
+        * [6. 含有相同元素求排列](#6-含有相同元素求排列)
+        * [7. 组合](#7-组合)
+        * [8. 组合求和](#8-组合求和)
+        * [9. 含有相同元素的组合求和](#9-含有相同元素的组合求和)
+        * [10. 1-9 数字的组合求和](#10-1-9-数字的组合求和)
+        * [11. 子集](#11-子集)
+        * [12. 含有相同元素求子集](#12-含有相同元素求子集)
+        * [13. 分割字符串使得每个部分都是回文数](#13-分割字符串使得每个部分都是回文数)
+        * [14. 数独](#14-数独)
+        * [15. N 皇后](#15-n-皇后)
 <!-- GFM-TOC -->
 
 
 深度优先搜索和广度优先搜索广泛运用于树和图中，但是它们的应用远远不止如此。
 
-# BFS
+## BFS
 
-<div align="center"> <img src="pics/95903878-725b-4ed9-bded-bc4aae0792a9.jpg"/> </div><br>
+<div align="center"> <img src="https://cs-notes-1256109796.cos.ap-guangzhou.myqcloud.com/95903878-725b-4ed9-bded-bc4aae0792a9.jpg"/> </div><br>
 
-广度优先搜索一层一层地进行遍历，每层遍历都以上一层遍历的结果作为起点，遍历一个距离能访问到的所有节点。需要注意的是，遍历过的节点不能再次被遍历。
+广度优先搜索一层一层地进行遍历，每层遍历都是以上一层遍历的结果作为起点，遍历一个距离能访问到的所有节点。需要注意的是，遍历过的节点不能再次被遍历。
 
 第一层：
 
-- 0 -> {6,2,1,5}
+- 0 -\> {6,2,1,5}
 
 第二层：
 
-- 6 -> {4}
-- 2 -> {}
-- 1 -> {}
-- 5 -> {3}
+- 6 -\> {4}
+- 2 -\> {}
+- 1 -\> {}
+- 5 -\> {3}
 
 第三层：
 
-- 4 -> {}
-- 3 -> {}
+- 4 -\> {}
+- 3 -\> {}
 
-每一层遍历的节点都与根节点距离相同。设 d<sub>i</sub> 表示第 i 个节点与根节点的距离，推导出一个结论：对于先遍历的节点 i 与后遍历的节点 j，有 d<sub>i</sub> <= d<sub>j</sub>。利用这个结论，可以求解最短路径等  **最优解**  问题：第一次遍历到目的节点，其所经过的路径为最短路径。应该注意的是，使用 BFS 只能求解无权图的最短路径，无权图是指从一个节点到另一个节点的代价都记为 1。
+每一层遍历的节点都与根节点距离相同。设 d<sub>i</sub> 表示第 i 个节点与根节点的距离，推导出一个结论：对于先遍历的节点 i 与后遍历的节点 j，有 d<sub>i</sub> <= d<sub>j</sub>。利用这个结论，可以求解最短路径等   **最优解**   问题：第一次遍历到目的节点，其所经过的路径为最短路径。应该注意的是，使用 BFS 只能求解无权图的最短路径，无权图是指从一个节点到另一个节点的代价都记为 1。
 
 在程序实现 BFS 时需要考虑以下问题：
 
 - 队列：用来存储每一轮遍历得到的节点；
 - 标记：对于遍历过的节点，应该将它标记，防止重复遍历。
 
-## 1. 计算在网格中从原点到特定点的最短路径长度
+### 1. 计算在网格中从原点到特定点的最短路径长度
 
 1091\. Shortest Path in Binary Matrix(Medium)
 
@@ -76,35 +78,41 @@
 
 ```java
 public int shortestPathBinaryMatrix(int[][] grids) {
-    int[][] direction = {{1, -1}, {1, 0}, {1, 1}, {0, -1}, {0, 1}, {-1, -1}, {-1, 0}, {-1, 1}};
-    int m = grids.length, n = grids[0].length;
-    Queue<Pair<Integer, Integer>> queue = new LinkedList<>();
-    queue.add(new Pair<>(0, 0));
-    int pathLength = 0;
-    while (!queue.isEmpty()) {
-        int size = queue.size();
-        pathLength++;
-        while (size-- > 0) {
-            Pair<Integer, Integer> cur = queue.poll();
-            int cr = cur.getKey(), cc = cur.getValue();
-            grids[cr][cc] = 1; // 标记
-            for (int[] d : direction) {
-                int nr = cr + d[0], nc = cc + d[1];
-                if (nr < 0 || nr >= m || nc < 0 || nc >= n || grids[nr][nc] == 1) {
+        if (grids == null || grids.length == 0 || grids[0].length == 0) {
+            return -1;
+        }
+        int[][] direction = {{1, -1}, {1, 0}, {1, 1}, {0, -1}, {0, 1}, {-1, -1}, {-1, 0}, {-1, 1}};
+        int m = grids.length, n = grids[0].length;
+        Queue<Pair<Integer, Integer>> queue = new LinkedList<>();
+        queue.add(new Pair<>(0, 0));
+        int pathLength = 0;
+        while (!queue.isEmpty()) {
+            int size = queue.size();
+            pathLength++;
+            while (size-- > 0) {
+                Pair<Integer, Integer> cur = queue.poll();
+                int cr = cur.getKey(), cc = cur.getValue();
+                if (grids[cr][cc] == 1) {
                     continue;
                 }
-                if (nr == m - 1 && nc == n - 1) {
-                    return pathLength + 1;
+                if (cr == m - 1 && cc == n - 1) {
+                    return pathLength;
                 }
-                queue.add(new Pair<>(nr, nc));
+                grids[cr][cc] = 1; // 标记
+                for (int[] d : direction) {
+                    int nr = cr + d[0], nc = cc + d[1];
+                    if (nr < 0 || nr >= m || nc < 0 || nc >= n) {
+                        continue;
+                    }
+                    queue.add(new Pair<>(nr, nc));
+                }
             }
         }
+        return -1;
     }
-    return -1;
-}
 ```
 
-## 2. 组成整数的最小平方数数量
+### 2. 组成整数的最小平方数数量
 
 279\. Perfect Squares (Medium)
 
@@ -169,7 +177,7 @@ private List<Integer> generateSquares(int n) {
 }
 ```
 
-## 3. 最短单词路径
+### 3. 最短单词路径
 
 127\. Word Ladder (Medium)
 
@@ -267,22 +275,22 @@ private int getShortestPath(List<Integer>[] graphic, int start, int end) {
 }
 ```
 
-# DFS
+## DFS
 
-<div align="center"> <img src="pics/74dc31eb-6baa-47ea-ab1c-d27a0ca35093.png"/> </div><br>
+<div align="center"> <img src="https://cs-notes-1256109796.cos.ap-guangzhou.myqcloud.com/74dc31eb-6baa-47ea-ab1c-d27a0ca35093.png"/> </div><br>
 
 广度优先搜索一层一层遍历，每一层得到的所有新节点，要用队列存储起来以备下一层遍历的时候再遍历。
 
 而深度优先搜索在得到一个新节点时立即对新节点进行遍历：从节点 0 出发开始遍历，得到到新节点 6 时，立马对新节点 6 进行遍历，得到新节点 4；如此反复以这种方式遍历新节点，直到没有新节点了，此时返回。返回到根节点 0 的情况是，继续对根节点 0 进行遍历，得到新节点 2，然后继续以上步骤。
 
-从一个节点出发，使用 DFS 对一个图进行遍历时，能够遍历到的节点都是从初始节点可达的，DFS 常用来求解这种  **可达性**  问题。
+从一个节点出发，使用 DFS 对一个图进行遍历时，能够遍历到的节点都是从初始节点可达的，DFS 常用来求解这种   **可达性**   问题。
 
 在程序实现 DFS 时需要考虑以下问题：
 
 - 栈：用栈来保存当前节点信息，当遍历新节点返回时能够继续遍历当前节点。可以使用递归栈。
 - 标记：和 BFS 一样同样需要对已经遍历过的节点进行标记。
 
-## 1. 查找最大的连通面积
+### 1. 查找最大的连通面积
 
 695\. Max Area of Island (Medium)
 
@@ -331,7 +339,7 @@ private int dfs(int[][] grid, int r, int c) {
 }
 ```
 
-## 2. 矩阵中的连通分量数目
+### 2. 矩阵中的连通分量数目
 
 200\. Number of Islands (Medium)
 
@@ -382,7 +390,7 @@ private void dfs(char[][] grid, int i, int j) {
 }
 ```
 
-## 3. 好友关系的连通分量数目
+### 3. 好友关系的连通分量数目
 
 547\. Friend Circles (Medium)
 
@@ -428,7 +436,7 @@ private void dfs(int[][] M, int i, boolean[] hasVisited) {
 }
 ```
 
-## 4. 填充封闭区域
+### 4. 填充封闭区域
 
 130\. Surrounded Regions (Medium)
 
@@ -495,7 +503,7 @@ private void dfs(char[][] board, int r, int c) {
 }
 ```
 
-## 5. 能到达的太平洋和大西洋的区域
+### 5. 能到达的太平洋和大西洋的区域
 
 417\. Pacific Atlantic Water Flow (Medium)
 
@@ -573,25 +581,25 @@ private void dfs(int r, int c, boolean[][] canReach) {
 }
 ```
 
-# Backtracking
+## Backtracking
 
 Backtracking（回溯）属于 DFS。
 
-- 普通 DFS 主要用在  **可达性问题** ，这种问题只需要执行到特点的位置然后返回即可。
-- 而 Backtracking 主要用于求解  **排列组合**  问题，例如有 { 'a','b','c' } 三个字符，求解所有由这三个字符排列得到的字符串，这种问题在执行到特定的位置返回之后还会继续执行求解过程。
+- 普通 DFS 主要用在   **可达性问题**  ，这种问题只需要执行到特点的位置然后返回即可。
+- 而 Backtracking 主要用于求解   **排列组合**   问题，例如有 { 'a','b','c' } 三个字符，求解所有由这三个字符排列得到的字符串，这种问题在执行到特定的位置返回之后还会继续执行求解过程。
 
 因为 Backtracking 不是立即返回，而要继续求解，因此在程序实现时，需要注意对元素的标记问题：
 
 - 在访问一个新元素进入新的递归调用时，需要将新元素标记为已经访问，这样才能在继续递归调用时不用重复访问该元素；
 - 但是在递归返回时，需要将元素标记为未访问，因为只需要保证在一个递归链中不同时访问一个元素，可以访问已经访问过但是不在当前递归链中的元素。
 
-## 1. 数字键盘组合
+### 1. 数字键盘组合
 
 17\. Letter Combinations of a Phone Number (Medium)
 
 [Leetcode](https://leetcode.com/problems/letter-combinations-of-a-phone-number/description/) / [力扣](https://leetcode-cn.com/problems/letter-combinations-of-a-phone-number/description/)
 
-<div align="center"> <img src="pics/9823768c-212b-4b1a-b69a-b3f59e07b977.jpg"/> </div><br>
+<div align="center"> <img src="https://cs-notes-1256109796.cos.ap-guangzhou.myqcloud.com/9823768c-212b-4b1a-b69a-b3f59e07b977.jpg"/> </div><br>
 
 ```html
 Input:Digit string "23"
@@ -625,7 +633,7 @@ private void doCombination(StringBuilder prefix, List<String> combinations, fina
 }
 ```
 
-## 2. IP 地址划分
+### 2. IP 地址划分
 
 93\. Restore IP Addresses(Medium)
 
@@ -668,7 +676,7 @@ private void doRestore(int k, StringBuilder tempAddress, List<String> addresses,
 }
 ```
 
-## 3. 在矩阵中寻找字符串
+### 3. 在矩阵中寻找字符串
 
 79\. Word Search (Medium)
 
@@ -739,7 +747,7 @@ private boolean backtracking(int curLen, int r, int c, boolean[][] visited, fina
 }
 ```
 
-## 4. 输出二叉树中所有从根到叶子的路径
+### 4. 输出二叉树中所有从根到叶子的路径
 
 257\. Binary Tree Paths (Easy)
 
@@ -799,7 +807,7 @@ private String buildPath(List<Integer> values) {
 }
 ```
 
-## 5. 排列
+### 5. 排列
 
 46\. Permutations (Medium)
 
@@ -844,7 +852,7 @@ private void backtracking(List<Integer> permuteList, List<List<Integer>> permute
 }
 ```
 
-## 6. 含有相同元素求排列
+### 6. 含有相同元素求排列
 
 47\. Permutations II (Medium)
 
@@ -891,7 +899,7 @@ private void backtracking(List<Integer> permuteList, List<List<Integer>> permute
 }
 ```
 
-## 7. 组合
+### 7. 组合
 
 77\. Combinations (Medium)
 
@@ -930,7 +938,7 @@ private void backtracking(List<Integer> combineList, List<List<Integer>> combina
 }
 ```
 
-## 8. 组合求和
+### 8. 组合求和
 
 39\. Combination Sum (Medium)
 
@@ -966,7 +974,7 @@ private void backtracking(List<Integer> tempCombination, List<List<Integer>> com
 }
 ```
 
-## 9. 含有相同元素的组合求和
+### 9. 含有相同元素的组合求和
 
 40\. Combination Sum II (Medium)
 
@@ -1013,7 +1021,7 @@ private void backtracking(List<Integer> tempCombination, List<List<Integer>> com
 }
 ```
 
-## 10. 1-9 数字的组合求和
+### 10. 1-9 数字的组合求和
 
 216\. Combination Sum III (Medium)
 
@@ -1055,7 +1063,7 @@ private void backtracking(int k, int n, int start,
 }
 ```
 
-## 11. 子集
+### 11. 子集
 
 78\. Subsets (Medium)
 
@@ -1088,7 +1096,7 @@ private void backtracking(int start, List<Integer> tempSubset, List<List<Integer
 }
 ```
 
-## 12. 含有相同元素求子集
+### 12. 含有相同元素求子集
 
 90\. Subsets II (Medium)
 
@@ -1140,7 +1148,7 @@ private void backtracking(int start, List<Integer> tempSubset, List<List<Integer
 }
 ```
 
-## 13. 分割字符串使得每个部分都是回文数
+### 13. 分割字符串使得每个部分都是回文数
 
 131\. Palindrome Partitioning (Medium)
 
@@ -1188,13 +1196,13 @@ private boolean isPalindrome(String s, int begin, int end) {
 }
 ```
 
-## 14. 数独
+### 14. 数独
 
 37\. Sudoku Solver (Hard)
 
 [Leetcode](https://leetcode.com/problems/sudoku-solver/description/) / [力扣](https://leetcode-cn.com/problems/sudoku-solver/description/)
 
-<div align="center"> <img src="pics/0e8fdc96-83c1-4798-9abe-45fc91d70b9d.png"/> </div><br>
+<div align="center"> <img src="https://cs-notes-1256109796.cos.ap-guangzhou.myqcloud.com/0e8fdc96-83c1-4798-9abe-45fc91d70b9d.png"/> </div><br>
 
 ```java
 private boolean[][] rowsUsed = new boolean[9][10];
@@ -1247,13 +1255,13 @@ private int cubeNum(int i, int j) {
 }
 ```
 
-## 15. N 皇后
+### 15. N 皇后
 
 51\. N-Queens (Hard)
 
 [Leetcode](https://leetcode.com/problems/n-queens/description/) / [力扣](https://leetcode-cn.com/problems/n-queens/description/)
 
-<div align="center"> <img src="pics/067b310c-6877-40fe-9dcf-10654e737485.jpg"/> </div><br>
+<div align="center"> <img src="https://cs-notes-1256109796.cos.ap-guangzhou.myqcloud.com/067b310c-6877-40fe-9dcf-10654e737485.jpg"/> </div><br>
 
 在 n\*n 的矩阵中摆放 n 个皇后，并且每个皇后不能在同一行，同一列，同一对角线上，求所有的 n 皇后的解。
 
@@ -1261,12 +1269,12 @@ private int cubeNum(int i, int j) {
 
 45 度对角线标记数组的长度为 2 \* n - 1，通过下图可以明确 (r, c) 的位置所在的数组下标为 r + c。
 
-<div align="center"> <img src="pics/9c422923-1447-4a3b-a4e1-97e663738187.jpg" width="300px"> </div><br>
+<div align="center"> <img src="https://cs-notes-1256109796.cos.ap-guangzhou.myqcloud.com/9c422923-1447-4a3b-a4e1-97e663738187.jpg" width="300px"> </div><br>
 
 
 135 度对角线标记数组的长度也是 2 \* n - 1，(r, c) 的位置所在的数组下标为 n - 1 - (r - c)。
 
-<div align="center"> <img src="pics/7a85e285-e152-4116-b6dc-3fab27ba9437.jpg" width="300px"> </div><br>
+<div align="center"> <img src="https://cs-notes-1256109796.cos.ap-guangzhou.myqcloud.com/7a85e285-e152-4116-b6dc-3fab27ba9437.jpg" width="300px"> </div><br>
 
 ```java
 private List<List<String>> solutions;
@@ -1314,10 +1322,3 @@ private void backtracking(int row) {
     }
 }
 ```
-
-
-
-
-
-
-<div align="center"><img width="320px" src="https://cs-notes-1256109796.cos.ap-guangzhou.myqcloud.com/githubio/公众号二维码-1.png"></img></div>
